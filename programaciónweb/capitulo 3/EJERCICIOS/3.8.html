@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Autocomplete con datalist</title>
+    </head>
+    <body>
+        <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+        </div>
+        <h1>DÍAS DE LA SEMANA</h1>
+        <form method="post" autocomplete="on">
+            <p><label>Día:
+                <input type="text" name="dia" list="dias">
+                <datalist id="dias">
+                    <option value="Lunes">
+                    <option value="Martes">
+                    <option value="Miércoles">
+                    <option value="Jueves">
+                    <option value="Viernes">
+                    <option value="Sábado">
+                    <option value="Domingo">
+                </datalist>
+            </label></p>
+            <p>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Borrar">
+            </p>
+        </form>
+    </body>
+</html>

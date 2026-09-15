@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registro Web</title>
+    </head>
+    <body>
+        <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+        </div>
+        <h1>Formulario de registro</h1>
+        <form method="post" action="http://www.deitel.com">
+            <p><label>Primer nombre:
+                <input type="text" name="nombre" required>
+            </label></p>
+
+            <p><label>Apellido:
+                <input type="text" name="apellido" required>
+            </label></p>
+
+            <p><label>Correo electrónico:
+                <input type="email" name="email" required>
+            </label></p>
+
+            <details>
+                <summary>Encuesta opcional</summary>
+                <p><label>¿En qué año te encuentras en la universidad?
+                    <select name="anio">
+                        <option value="primero">Primer año</option>
+                        <option value="segundo">Segundo año</option>
+                        <option value="tercero">Tercer año</option>
+                        <option value="cuarto">Cuarto año</option>
+                        <option value="quinto">Quinto año</option>
+                    </select>
+                </label></p>
+            </details>
+
+            <p>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Borrar">
+            </p>
+        </form>
+    </body>
+</html>

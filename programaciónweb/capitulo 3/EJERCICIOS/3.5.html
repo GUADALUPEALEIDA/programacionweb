@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>EJERICIO 3.5</title>
+    </head>
+    <body>
+        <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+        </div>
+        <h2>EJERCICIO 3.5</h2>
+        <h3>a) Calificación de alimentos</h3>
+        <p>Calificación promedio de los alimentos en la cafetería:</p>
+        <p>1 <meter min="1" max="10" value="7"></meter> 10</p>
+
+        <h3>b) Resultados de la encuesta</h3>
+        <details>
+            <summary>Resultados de la encuesta</summary>
+            <p>Se pidió a los estudiantes que calificaran los alimentos de la cafetería
+                en una escala del 1 al 10. El resultado promedio fue de 7.</p>
+        </details>
+
+        <form method="post" action="http://www.deitel.com">
+
+            <h3>c) Primer nombre con autofocus</h3>
+            <p><label>Primer nombre:
+                <input type="text" id="primerNombre" autofocus>
+            </label></p>
+
+            <h3>d) Primer nombre con placeholder</h3>
+            <p>
+                <input type="text" id="primerNombre2" placeholder="Primer nombre">
+            </p>
+
+            <h3>e) Estado con datalist</h3>
+            <p><label>Estado:
+                <input type="text" name="estado" list="estados">
+                <datalist id="estados">
+                    <option value="Veracruz">
+                    <option value="Jalisco">
+                    <option value="Puebla">
+                    <option value="Oaxaca">
+                    <option value="Chiapas">
+                </datalist>
+            </label></p>
+
+
+            <h3>f) Rango del 1 al 100</h3>
+            <p><label>Selecciona un número:
+                1 <input type="range" min="1" max="100"> 100
+            </label></p>
+
+            <p>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Borrar">
+            </p>
+        </form>
+
+        <h3>g) Formulario con autocomplete deshabilitado</h3>
+        <form method="post" action="http://www.deitel.com" autocomplete="off">
+        <p><label>Nombre: <input type="text" name="nombre"></label></p>
+        </form>
+
+        <h3>h) Texto resaltado con mark</h3>
+        <p>Se pidió a los estudiantes que calificaran los alimentos en la cafeteria
+        en una escala del 1 al 10. <mark>EL RESULTADO PROMEDIO FUE 7.</mark></p>
+
+    </body>
+</html>
