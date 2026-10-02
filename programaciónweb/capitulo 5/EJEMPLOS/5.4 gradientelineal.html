@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Gradiente lineal</title>
+        <style type="text/css">
+            .contenedor
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+            .caja
+            {
+                width: 200px;
+                height: 200px;
+                border: 3px solid navy;
+                padding: 5px 20px;
+                text-align:center;
+                background: linear-gradient(
+                    to bottom, white 15%, lightsteelblue 50%, navy 75%);
+            }
+            #horizontal
+            {
+                width: 200px;
+                height: 200px;
+                border: 3px solid rgb(128, 0, 100);
+                padding: 5px 20px;
+                text-align: center;
+                background: linear-gradient(
+                    to right, white 15%, yellow 50%, orange 75%);
+            }
+            #diagonal
+            {
+                width:200px;
+                height: 200px;
+                border: 3px solid powderblue;
+                padding: 5px 20px;
+                text-align: center;
+                background: linear-gradient(
+                    135deg, white 15%, plum 50%, purple 75%);
+            }
+        </style>
+    </head>
+    <body>
+      <div class="reg">
+      <a class="regresar" href="ejemplos.html">⬅</a>
+      </div>
+        <div class="contenedor">
+          <div class="caja"><h2>Gradiente lineal vertical</h2></div>
+          <div id="horizontal"><h2>Gradiente lineal horizontal</h2></div>
+          <div id="diagonal"><h2>Gradiente lineal diagonal</h2></div>
+        </div>
+    </body>   
+</html>

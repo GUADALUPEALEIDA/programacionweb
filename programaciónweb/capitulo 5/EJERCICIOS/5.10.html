@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Inclinación</title>
+   <style type="text/css">
+      .inclinar {
+         width: 180px; height: 80px;
+         background: #6a4c93; color: white;
+         text-align: center; line-height: 80px;
+         animation: inclinar 5s linear infinite;
+      }
+      @keyframes inclinar {
+         0%   { transform: skewY(0); }
+         20%  { transform: skewY(30deg); }
+         40%  { transform: skewY(0); }
+         60%  { transform: skewX(30deg); }
+         80%  { transform: skewX(0); }
+         100% { transform: skewY(0); }
+      }
+   </style>
+</head>
+<body>
+   <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+   </div>
+   <h3>5.10 INCLINACIÓN ALTERNADA</h3>
+   <p>Modifica la fig. 5.13: inclina de arriba hacia abajo 30deg, luego de izquierda a derecha 30deg, de forma indefinida.</p>
+   <div class="inclinar"</div>
+</body>
+</html>

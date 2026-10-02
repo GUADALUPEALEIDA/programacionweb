@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Animación cuadrada</title>
+   <style type="text/css">
+      #contenedor { width: 200px; height: 200px; border: 1px dashed gray; position: relative; }
+      #cuadro {
+         width: 30px; height: 30px;
+         background: crimson;
+         position: absolute;
+         animation: cuadrado 4s linear infinite;
+      }
+      @keyframes cuadrado {
+         0%   { left: 0px;   top: 0px; }
+         25%  { left: 170px; top: 0px; }
+         50%  { left: 170px; top: 170px; }
+         75%  { left: 0px;   top: 170px; }
+         100% { left: 0px;   top: 0px; }
+      }
+   </style>
+</head>
+<body>
+   <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+   </div>
+   <h3>5.9 Animación</h3>
+   <p>Animación infinita de un elemento que se mueve en un patrón cuadrado.</p>
+   <div id="contenedor"><div id="cuadro"></div></div>
+</body>
+</html>

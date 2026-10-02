@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Fusionar imágenes</title>
+   <style type="text/css">
+      body { font-family: sans-serif; text-align: center; }
+      #contenedor {
+         position: relative;
+         width: 160px; height: 200px;
+         margin: 20px auto;
+         border: 3px solid #333;
+      }
+      #contenedor img {
+         position: absolute;
+         top: 0; left: 0;
+         width: 100%; height: 100%;
+         object-fit: cover;
+      }
+      #contenedor:hover #capa5 { opacity: 0; transition: opacity 3s linear 0s;  }
+      #contenedor:hover #capa4 { opacity: 0; transition: opacity 3s linear 3s;  }
+      #contenedor:hover #capa3 { opacity: 0; transition: opacity 3s linear 6s;  }
+      #contenedor:hover #capa2 { opacity: 0; transition: opacity 3s linear 9s;  }
+      p.instrucciones { max-width: 300px; margin: 10px auto; color: #555; font-size: 14px; }
+   </style>
+</head>
+<body>
+   <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+   </div>
+   <h2>Fusión de 5 imágenes</h2>
+   <p class="instrucciones">Mantén el mouse sobre la imagen varios segundos: cada capa se
+      desvanece una tras otra y revela la siguiente </p>
+
+   <div id="contenedor">
+      <img id="capa1" src="imagenes/img1.png" alt="Foto 1 - 2004">
+      <img id="capa2" src="imagenes/img2.png" alt="Foto 2 - 2009">
+      <img id="capa3" src="imagenes/img3.png" alt="Foto 3 - 2014">
+      <img id="capa4" src="imagenes/img4.png" alt="Foto 4 - 2019">
+      <img id="capa5" src="imagenes/img5.png" alt="Foto 5 - 2024">
+   </div>
+</body>
+</html>
