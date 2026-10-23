@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            // el arreglo más pequeño posible: 10 elementos (el peor caso es que todos sean diferentes)
+            var vistos = new Array( 10 );
+            var cantidad = 0;     // cuántos números diferentes se han guardado
+            var introducidos = 0; // cuántos números se han introducido
+
+            function introducir()
+            {
+                var campo = document.getElementById( "numero" );
+                var n = parseInt( campo.value );
+
+                if ( isNaN( n ) || n < 10 || n > 100 )
+                {
+                    alert( "Escriba un número entre 10 y 100" );
+                    return;
+                } // fin de if
+
+                if ( introducidos == 10 )
+                {
+                    alert( "Ya introdujo los 10 números" );
+                    return;
+                } // fin de if
+
+                ++introducidos;
+
+                if ( vistos.indexOf( n ) == -1 ) // no es duplicado
+                {
+                    vistos[ cantidad ] = n;
+                    ++cantidad;
+                    document.getElementById( "salida" ).innerHTML +=
+                        "El número " + n + " no está repetido.<br>";
+                } // fin de if
+                else
+                {
+                    document.getElementById( "salida" ).innerHTML +=
+                        "El número " + n + " ya se había introducido (no se imprime).<br>";
+                } // fin de else
+
+                document.getElementById( "contador" ).innerHTML =
+                    "Números introducidos: " + introducidos + " de 10";
+                campo.value = "";
+            } // fin de la función introducir
+
+            function iniciar()
+            {
+                document.getElementById( "botonIntroducir" ).addEventListener( "click", introducir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.12</h3>
+    <p>Use un arreglo unidimensional para resolver el siguiente problema: recibir 10 números de entrada, cada uno de los cuales debe estar entre 10 y 100. A medida que se ingrese cada número, imprímalo sólo si no es un duplicado de un número que ya se haya recibido de entrada. Prepárese para el “peor caso”, en donde los 10 números sean diferentes. Use el arreglo más pequeño posible para resolver este problema.</p>
+    <form action = "#">
+        <p><label>Número entre 10 y 100: <input id = "numero" type = "text"></label>
+        <input id = "botonIntroducir" type = "button" value = "Introducir"></p>
+    </form>
+    <p id = "contador"></p>
+    <p id = "salida"></p>
+    </body>
+</html>

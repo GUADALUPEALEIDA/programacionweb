@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function ejecutar()
+            {
+                var piso = new Array( 20 ); // piso de 20 por 20, inicializado en ceros
+
+                for ( var i = 0; i < 20; ++i )
+                {
+                    piso[ i ] = new Array( 20 );
+
+                    for ( var j = 0; j < 20; ++j )
+                        piso[ i ][ j ] = 0;
+                } // fin de for
+
+                var lineas = document.getElementById( "comandos" ).value.split( "\n" );
+                var fila = 0, col = 0;      // posición de la tortuga
+                var dir = 0;                // 0 derecha, 1 abajo, 2 izquierda, 3 arriba
+                var dFila = [ 0, 1, 0, -1 ];
+                var dCol = [ 1, 0, -1, 0 ];
+                var plumaAbajo = false;     // empieza con la pluma arriba
+                var salida = "";
+
+                for ( var k = 0; k < lineas.length; ++k )
+                {
+                    var comando = parseInt( lineas[ k ] ); // 5,12 se lee como 5
+
+                    if ( isNaN( comando ) || comando == 9 )
+                        break; // centinela: fin de datos
+
+                    switch ( comando )
+                    {
+                        case 1: plumaAbajo = false; break;
+                        case 2: plumaAbajo = true; break;
+                        case 3: dir = ( dir + 1 ) % 4; break;
+                        case 4: dir = ( dir + 3 ) % 4; break;
+                        case 5:
+                            var pasos = lineas[ k ].split( "," )[ 1 ];
+                            pasos = isNaN( parseInt( pasos ) ) ? 10 : parseInt( pasos );
+
+                            for ( var p = 0; p < pasos; ++p )
+                            {
+                                var nf = fila + dFila[ dir ];
+                                var nc = col + dCol[ dir ];
+
+                                if ( nf < 0 || nf > 19 || nc < 0 || nc > 19 )
+                                    break; // no salirse del piso
+
+                                fila = nf;
+                                col = nc;
+
+                                if ( plumaAbajo )
+                                    piso[ fila ][ col ] = 1;
+                            } // fin de for
+                            break;
+                        case 6:
+                            for ( var f = 0; f < 20; ++f )
+                            {
+                                for ( var c = 0; c < 20; ++c )
+                                    salida += piso[ f ][ c ] == 1 ? "*" : " ";
+
+                                salida += "\n";
+                            } // fin de for
+                            salida += "--------------------\n";
+                            break;
+                    } // fin de switch
+                } // fin de for
+
+                document.getElementById( "salida" ).textContent = salida;
+            } // fin de la función ejecutar
+
+            function iniciar()
+            {
+                document.getElementById( "botonEjecutar" ).addEventListener( "click", ejecutar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.15 (Gráficos de tortuga)</h3>
+    <p>El lenguaje Logo, que es popular entre usuarios de computadora de corta edad, hizo famoso el concepto de los <em>gráficos de tortuga</em>. Imagine una tortuga mecánica que camina alrededor del cuarto bajo el control de un programa de JavaScript. La tortuga sostiene una pluma en una de dos posiciones, arriba o abajo. Cuando la pluma está abajo, la tortuga traza figuras a medida que se desplaza; cuando la pluma está arriba la tortuga se mueve libremente sin escribir nada. En este problema usted simulará la operación de la tortuga y creará un bloc de dibujo computarizado.</p>
+    <p>Use un arreglo de 20 por 20 llamado piso que esté inicializado en ceros. Lea los comandos de un arreglo que los contenga. Rastree la posición actual de la tortuga en todo momento y si la pluma está arriba o abajo en un momento dado. Suponga que la tortuga siempre empieza en la posición (0, 0) del piso, con su pluma arriba. Comandos: 1 pluma arriba, 2 pluma abajo, 3 girar a la derecha, 4 girar a la izquierda, 5,10 avanzar 10 espacios (o un número distinto de 10), 6 imprimir el arreglo de 20 por 20, 9 fin de datos (centinela).</p>
+    <p>Escriba un comando por línea (la tortuga empieza mirando hacia la derecha). El siguiente programa dibuja un cuadrado de 12 por 12:</p>
+    <form action = "#">
+        <p><textarea id = "comandos" rows = "14" cols = "20">2
+5,12
+3
+5,12
+3
+5,12
+3
+5,12
+1
+6
+9</textarea></p>
+        <p><input id = "botonEjecutar" type = "button" value = "Ejecutar comandos"></p>
+    </form>
+    <pre id = "salida"></pre>
+    </body>
+</html>

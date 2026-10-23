@@ -1,0 +1,9 @@
+/* Hoja de estilo usada por los ejemplos del capítulo */
+table { border-collapse: collapse; margin-bottom: 10px; }
+caption { text-align: left; }
+th { background-color: black; color: white; text-align: left; padding: 2px 8px; }
+td { background-color: lightgray; border: 1px solid black; padding: 2px 8px; }
+p > img { width: 54px; height: 54px; }
+p { margin: 4px 0; }
+ol { margin: 0 0 0 30px; padding: 0; }
+li { display: inline; margin-right: 10px; }

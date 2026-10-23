@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function iniciar()
+            {
+                var criba = new Array( 1000 );
+
+                for ( var i = 0; i < 1000; ++i )
+                    criba[ i ] = 1; // al principio todos se consideran primos
+
+                criba[ 0 ] = 0; // 0 y 1 no son primos
+                criba[ 1 ] = 0;
+
+                for ( var i = 2; i < 1000; ++i )
+                {
+                    if ( criba[ i ] == 1 )
+                    {
+                        // poner en cero todos los múltiplos de i
+                        for ( var j = i + i; j < 1000; j += i )
+                            criba[ j ] = 0;
+                    } // fin de if
+                } // fin de for
+
+                var primos = [];
+
+                for ( var i = 1; i < 1000; ++i )
+                {
+                    if ( criba[ i ] == 1 )
+                        primos.push( i );
+                } // fin de for
+
+                document.getElementById( "salida" ).innerHTML =
+                    "<p>Números primos entre 1 y 999 (" + primos.length + " en total):</p><p>" +
+                    primos.join( ", " ) + "</p>";
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.16 (La criba de Eratóstenes)</h3>
+    <p>Un número primo es cualquier entero mayor que 1, divisible sólo por sí mismo y por el número 1. La Criba de Eratóstenes es un método para encontrar números primos. Opera de la siguiente manera: a) Cree un arreglo con todos los elementos inicializados en 1 (true). Los elementos del arreglo con índices primos permanecerán como 1. Cualquier otro elemento del arreglo eventualmente cambiará a 0. b) Establezca los primeros dos elementos en cero, ya que 0 y 1 no son primos. Empezando con el índice 2 del arreglo, cada vez que encuentre un elemento cuyo valor sea 1, itere a través del resto del arreglo y asigne cero a todo elemento cuyo índice sea múltiplo del índice del elemento que tiene el valor 1. Escriba una secuencia de comandos que utilice un arreglo de 1000 elementos para determinar e imprimir los números primos entre 1 y 999. Ignore el elemento 0 del arreglo.</p>
+    <div id = "salida"></div>
+    </body>
+</html>

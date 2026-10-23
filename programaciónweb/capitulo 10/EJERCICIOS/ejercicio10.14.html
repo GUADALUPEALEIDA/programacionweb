@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <style>
+            table { border-collapse: collapse; }
+            th, td { border: 1px solid black; padding: 2px 10px; text-align: right; }
+        </style>
+        <script>
+            function iniciar()
+            {
+                // frecuencia[ dado1 ][ dado2 ]: cuántas veces salió cada combinación (índices 1 a 6)
+                var frecuencia = new Array( 7 );
+
+                for ( var i = 0; i < 7; ++i )
+                {
+                    frecuencia[ i ] = [ 0, 0, 0, 0, 0, 0, 0 ];
+                } // fin de for
+
+                var tiros = 36000;
+
+                for ( var tiro = 1; tiro <= tiros; ++tiro )
+                {
+                    var dado1 = Math.floor( 1 + Math.random() * 6 );
+                    var dado2 = Math.floor( 1 + Math.random() * 6 );
+                    ++frecuencia[ dado1 ][ dado2 ];
+                } // fin de for
+
+                var t = "<table><tr><th>Suma</th><th>Formas</th><th>Frecuencia</th>" +
+                    "<th>Porcentaje real</th><th>Porcentaje esperado</th><th>¿Razonable?</th></tr>";
+
+                for ( var suma = 2; suma <= 12; ++suma )
+                {
+                    var total = 0;
+                    var formas = 0;
+
+                    // sumar las combinaciones del arreglo bidimensional cuya suma es "suma"
+                    for ( var d1 = 1; d1 <= 6; ++d1 )
+                        for ( var d2 = 1; d2 <= 6; ++d2 )
+                            if ( d1 + d2 == suma )
+                            {
+                                total += frecuencia[ d1 ][ d2 ];
+                                ++formas;
+                            } // fin de if
+
+                    var real = total / tiros * 100;
+                    var esperado = formas / 36 * 100;
+                    var razonable = Math.abs( real - esperado ) < 1 ? "Sí" : "No";
+
+                    t += "<tr><td>" + suma + "</td><td>" + formas + "</td><td>" + total +
+                        "</td><td>" + real.toFixed( 2 ) + "%</td><td>" + esperado.toFixed( 2 ) +
+                        "%</td><td>" + razonable + "</td></tr>";
+                } // fin de for
+
+                document.getElementById( "resultado" ).innerHTML = t + "</table>";
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.14</h3>
+    <p>Escriba una secuencia de comandos para simular el tiro de dos dados. La secuencia debe usar Math.random para tirar el primer dado y usar esa función de nuevo para tirar el segundo dado. Después deberá calcularse la suma de los dos valores. Su programa deberá tirar los dados 36,000 veces. Use un arreglo bidimensional para calcular el número de veces que aparezca cada posible suma. Muestre los resultados en una tabla de HTML5. Determine además si los totales son razonables (por ejemplo, hay seis formas de tirar un 7 por lo que cerca de 1/6 parte de todos los tiros deberán ser 7).</p>
+    <div id = "resultado"></div>
+    </body>
+</html>

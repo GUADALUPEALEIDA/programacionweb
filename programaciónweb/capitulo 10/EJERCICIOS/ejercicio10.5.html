@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO AUTOEVALUACIÓN</title>
+        
+    </head>
+    <body>
+    <h3>EJERCICIO DE AUTOEVALUACIÓN 10.5</h3>
+    <p>Encuentre el o los errores en cada uno de los siguientes segmentos de programa y corríjalos.</p>
+    <ul>
+        <li>a)<br><pre>
+var b = new Array( 10 );
+var longitud = b.length;
+
+for ( var i = 0; i &lt;= longitud; ++i )
+{
+   b[ i ] = 1;
+}
+</pre><em><strong>Error: se hace referencia al elemento de un arreglo fuera de los límites del arreglo (b[10]) [<em>Nota:</em> en realidad éste es un error lógico y no sintáctico]. Corrección: cambie el operador &lt;= a &lt;.</strong></em></li>
+        <li>b)<br><pre>
+var a = [ [ 1, 2 ], [ 3, 4 ] ];
+a[ 1, 1 ] = 5;
+</pre><em><strong>Error: el indexado de arreglos se realiza de manera incorrecta. Corrección: cambie la instrucción a a[1][1] = 5;.</strong></em></li>
+    </ul>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        
+    </head>
+    <body>
+    <h3>EJERCICIO 10.9</h3>
+    <p>Considere un arreglo de dos por tres que almacena enteros.</p>
+    <ul>
+        <li>a) Escriba una instrucción para declarar y crear el arreglo t.<br>
+        <em><strong>var t = new Array( new Array( 3 ), new Array( 3 ) );</strong></em></li>
+        <li>b) ¿Cuántas filas tiene t?<br>
+        <em><strong>Dos.</strong></em></li>
+        <li>c) ¿Cuántas columnas tiene t?<br>
+        <em><strong>Tres.</strong></em></li>
+        <li>d) ¿Cuántos elementos tiene t?<br>
+        <em><strong>Seis.</strong></em></li>
+        <li>e) Escriba los nombres de todos los elementos en la fila 1 de t.<br>
+        <em><strong>t[ 1 ][ 0 ], t[ 1 ][ 1 ] y t[ 1 ][ 2 ]</strong></em></li>
+        <li>f) Escriba los nombres de todos los elementos en la tercera columna de t.<br>
+        <em><strong>t[ 0 ][ 2 ] y t[ 1 ][ 2 ]</strong></em></li>
+        <li>g) Escriba una sola instrucción para establecer el elemento de t en la fila 1 y la columna 2 en cero.<br>
+        <em><strong>t[ 1 ][ 2 ] = 0;</strong></em></li>
+        <li>h) Escriba una serie de instrucciones para inicializar cada elemento de t en cero.<br>
+        <em><strong>t[ 0 ][ 0 ] = 0;<br>t[ 0 ][ 1 ] = 0;<br>t[ 0 ][ 2 ] = 0;<br>t[ 1 ][ 0 ] = 0;<br>t[ 1 ][ 1 ] = 0;<br>t[ 1 ][ 2 ] = 0;</strong></em></li>
+        <li>i) Escriba una instrucción for anidada para inicializar cada elemento de t en cero.<br>
+        <em><strong>for ( var fila = 0; fila &lt; 2; ++fila )<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;for ( var col = 0; col &lt; 3; ++col )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t[ fila ][ col ] = 0;<br>}</strong></em></li>
+        <li>j) Escriba una serie de instrucciones para determinar e imprimir el valor más pequeño en el arreglo t.<br>
+        <em><strong>var menor = t[ 0 ][ 0 ];<br>for ( var fila = 0; fila &lt; 2; ++fila )<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;for ( var col = 0; col &lt; 3; ++col )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( t[ fila ][ col ] &lt; menor )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;menor = t[ fila ][ col ];<br>}<br>document.writeln( menor );</strong></em></li>
+        <li>k) Escriba una instrucción sin repetición para mostrar los elementos de la primera fila de t.<br>
+        <em><strong>document.writeln( t[ 0 ].join( " " ) );</strong></em></li>
+        <li>l) Escriba una serie de instrucciones para imprimir el arreglo t en un formato tabular ordenado. Liste los índices de columnas como encabezados a lo largo de la parte superior y liste los índices de fila en la parte izquierda de cada fila.<br>
+        <em><strong>var salida = "&lt;table&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;0&lt;/th&gt;&lt;th&gt;1&lt;/th&gt;&lt;th&gt;2&lt;/th&gt;&lt;/tr&gt;";<br>for ( var fila = 0; fila &lt; 2; ++fila )<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;salida += "&lt;tr&gt;&lt;th&gt;" + fila + "&lt;/th&gt;";<br>&nbsp;&nbsp;&nbsp;&nbsp;for ( var col = 0; col &lt; 3; ++col )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;salida += "&lt;td&gt;" + t[ fila ][ col ] + "&lt;/td&gt;";<br>&nbsp;&nbsp;&nbsp;&nbsp;salida += "&lt;/tr&gt;";<br>}<br>document.writeln( salida + "&lt;/table&gt;" );</strong></em></li>
+    </ul>
+    </body>
+</html>

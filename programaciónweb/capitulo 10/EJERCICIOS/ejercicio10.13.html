@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        
+    </head>
+    <body>
+    <h3>EJERCICIO 10.13</h3>
+    <p>Etiquete los elementos del arreglo bidimensional de tres por cinco llamado ventas para indicar el orden en el que se deben establecer en cero mediante el siguiente segmento de programa:</p>
+<pre>
+for ( var fila in ventas )
+{
+   for ( var col in ventas[ fila ] )
+   {
+      ventas[ fila ][ col ] = 0;
+   }
+}
+</pre>
+    <p><em><strong>El ciclo externo recorre las filas y el ciclo interno recorre las columnas de cada fila, así que el orden es por filas (el número indica en qué lugar se establece en cero cada elemento):</strong></em></p>
+    <table border = "1">
+        <tr><th></th><th>[ 0 ]</th><th>[ 1 ]</th><th>[ 2 ]</th><th>[ 3 ]</th><th>[ 4 ]</th></tr>
+        <tr><th>ventas[ 0 ]</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+        <tr><th>ventas[ 1 ]</th><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>ventas[ 2 ]</th><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+    </table>
+    </body>
+</html>

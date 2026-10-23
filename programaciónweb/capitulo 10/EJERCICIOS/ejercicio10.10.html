@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <style>
+            table { border-collapse: collapse; }
+            th, td { border: 1px solid black; padding: 2px 10px; }
+        </style>
+        <script>
+            var contadores = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]; // un contador por rango
+            var rangos = [ "$200 a 299", "$300 a 399", "$400 a 499", "$500 a 599",
+                "$600 a 699", "$700 a 799", "$800 a 899", "$900 a 999", "$1000 y más" ];
+
+            function agregar()
+            {
+                var campo = document.getElementById( "ventas" );
+                var ventas = parseFloat( campo.value );
+
+                if ( isNaN( ventas ) || ventas < 0 )
+                {
+                    alert( "Escriba un monto de ventas válido" );
+                    return;
+                } // fin de if
+
+                var salario = Math.floor( 200 + 0.09 * ventas ); // trunca a entero
+                var indice = Math.min( Math.floor( salario / 100 ), 10 ) - 2;
+                ++contadores[ indice ];
+                campo.value = "";
+                mostrar();
+            } // fin de la función agregar
+
+            function mostrar()
+            {
+                var t = "<table><tr><th>Rango de salario</th><th>Número de vendedores</th></tr>";
+
+                for ( var i = 0; i < contadores.length; ++i )
+                    t += "<tr><td>" + rangos[ i ] + "</td><td>" + contadores[ i ] + "</td></tr>";
+
+                document.getElementById( "resultado" ).innerHTML = t + "</table>";
+            } // fin de la función mostrar
+
+            function iniciar()
+            {
+                document.getElementById( "botonAgregar" ).addEventListener( "click", agregar, false );
+                mostrar();
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.10</h3>
+    <p>Use un arreglo unidimensional para resolver el siguiente problema: una empresa paga a su personal de ventas con base en comisiones. El personal de ventas recibe $200 por semana más el 9 por ciento de sus ventas brutas para esa semana. Por ejemplo, un vendedor con ventas brutas de $5000 en una semana recibe $200 más el 9 por ciento de $5000, o un total de $650. Escriba una secuencia de comandos (usando un arreglo de contadores) que obtenga las ventas brutas para cada empleado por medio de un formulario de HTML5 y determine cuántos vendedores obtuvieron salarios en cada uno de los siguientes rangos (suponga que el salario de cada vendedor se trunca a un monto entero):</p>
+    <p>a) $200 a 299 &nbsp; b) $300 a 399 &nbsp; c) $400 a 499 &nbsp; d) $500 a 599 &nbsp; e) $600 a 699 &nbsp; f) $700 a 799 &nbsp; g) $800 a 899 &nbsp; h) $900 a 999 &nbsp; i) $1000 y más</p>
+    <form action = "#">
+        <p><label>Ventas brutas del empleado: <input id = "ventas" type = "text"></label>
+        <input id = "botonAgregar" type = "button" value = "Agregar empleado"></p>
+    </form>
+    <div id = "resultado"></div>
+    </body>
+</html>

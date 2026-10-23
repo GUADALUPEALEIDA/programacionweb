@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO AUTOEVALUACIÓN</title>
+        
+    </head>
+    <body>
+    <h3>EJERCICIO DE AUTOEVALUACIÓN 10.4</h3>
+    <p>Escribir instrucciones de JavaScript (con respecto al arreglo tabla) para realizar cada una de las siguientes tareas:</p>
+    <ul>
+        <li>a) Declarar y crear el arreglo con tres filas y tres columnas.<br>
+        <em><strong>var tabla = new Array( new Array( 3 ), new Array( 3 ),<br>&nbsp;&nbsp;&nbsp;&nbsp;new Array( 3 ) );</strong></em></li>
+        <li>b) Almacenar el número total de elementos en la variable totalElementos.<br>
+        <em><strong>var totalElementos = tabla.length * tabla[ 0 ].length;</strong></em></li>
+        <li>c) Usar una instrucción for...in para inicializar cada elemento del arreglo con la suma de sus índices de fila y de columna. Suponga que las variables x y y se declaran como variables de control.<br>
+        <em><strong>for ( var x in tabla )<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;for ( var y in tabla[ x ] )<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabla[ x ][ y ] = parseInt( x ) + parseInt( y );<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</strong></em></li>
+    </ul>
+    </body>
+</html>

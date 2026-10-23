@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function carrera()
+            {
+                var tortuga = 1; // las dos empiezan en la posición 1
+                var liebre = 1;
+                var salida = "PUM!!!\nY ARRANCAN!!!\n\n";
+
+                while ( tortuga < 70 && liebre < 70 )
+                {
+                    // movimiento de la tortuga
+                    var i = Math.floor( 1 + Math.random() * 10 );
+
+                    if ( i <= 5 )
+                        tortuga += 3;       // paso pesado rápido
+                    else if ( i <= 7 )
+                        tortuga -= 6;       // resbalón
+                    else
+                        tortuga += 1;       // paso pesado lento
+
+                    // movimiento de la liebre
+                    i = Math.floor( 1 + Math.random() * 10 );
+
+                    if ( i <= 2 )
+                        liebre += 0;        // dormir
+                    else if ( i <= 4 )
+                        liebre += 9;        // gran salto
+                    else if ( i == 5 )
+                        liebre -= 12;       // gran resbalón
+                    else if ( i <= 8 )
+                        liebre += 1;        // pequeño salto
+                    else
+                        liebre -= 2;        // pequeño resbalón
+
+                    // nunca antes de la posición 1 ni después de la 70
+                    tortuga = Math.max( 1, Math.min( tortuga, 70 ) );
+                    liebre = Math.max( 1, Math.min( liebre, 70 ) );
+
+                    // imprimir la línea de 70 posiciones
+                    var linea = "";
+
+                    for ( var pos = 1; pos <= 70; ++pos )
+                    {
+                        if ( pos == tortuga && pos == liebre )
+                            linea += "OUCH!!!"; // la tortuga muerde a la liebre
+                        else if ( pos == tortuga )
+                            linea += "T";
+                        else if ( pos == liebre )
+                            linea += "H";
+                        else
+                            linea += " ";
+                    } // fin de for
+
+                    salida += linea + "\n";
+                } // fin de while
+
+                if ( tortuga >= 70 && liebre >= 70 )
+                    salida += "\nEs un empate.";
+                else if ( tortuga >= 70 )
+                    salida += "\nLA TORTUGA GANA!!! YAY!!!";
+                else
+                    salida += "\nLa liebre gana. Qué mal.";
+
+                document.getElementById( "salida" ).textContent = salida;
+            } // fin de la función carrera
+
+            function iniciar()
+            {
+                document.getElementById( "botonCarrera" ).addEventListener( "click", carrera, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 10.17 (Simulación: La tortuga y la liebre)</h3>
+    <p>En este problema usted recreará la clásica carrera de la tortuga y la liebre. Utilizará la generación de números aleatorios para desarrollar una simulación de este memorable suceso. Los competidores empezarán la carrera en la posición 1 de 70 posiciones. La línea de meta se encuentra en la posición 70. El primer competidor en llegar a la posición 70 o más allá recibirá una cubeta llena con zanahorias y lechuga frescas. Con cada tic del reloj, su secuencia de comandos debe ajustar la posición de los animales de acuerdo con las siguientes reglas:</p>
+    <table border = "1">
+        <tr><th>Animal</th><th>Tipo de movimiento</th><th>Porcentaje del tiempo</th><th>Movimiento actual</th></tr>
+        <tr><td rowspan = "3">Tortuga</td><td>Paso pesado rápido</td><td>50%</td><td>3 posiciones a la derecha</td></tr>
+        <tr><td>Resbalón</td><td>20%</td><td>6 posiciones a la izquierda</td></tr>
+        <tr><td>Paso pesado lento</td><td>30%</td><td>1 posición a la derecha</td></tr>
+        <tr><td rowspan = "5">Liebre</td><td>Dormir</td><td>20%</td><td>Ningún movimiento</td></tr>
+        <tr><td>Gran salto</td><td>20%</td><td>9 posiciones a la derecha</td></tr>
+        <tr><td>Gran resbalón</td><td>10%</td><td>12 posiciones a la izquierda</td></tr>
+        <tr><td>Pequeño salto</td><td>30%</td><td>1 posición a la derecha</td></tr>
+        <tr><td>Pequeño resbalón</td><td>20%</td><td>2 posiciones a la izquierda</td></tr>
+    </table>
+    <form action = "#">
+        <p><input id = "botonCarrera" type = "button" value = "Iniciar carrera"></p>
+    </form>
+    <pre id = "salida"></pre>
+    </body>
+</html>
