@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            var unidades = [ "", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
+                "DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS", "DIECISIETE",
+                "DIECIOCHO", "DIECINUEVE", "VEINTE", "VEINTIUNO", "VEINTIDÓS", "VEINTITRÉS",
+                "VEINTICUATRO", "VEINTICINCO", "VEINTISÉIS", "VEINTISIETE", "VEINTIOCHO", "VEINTINUEVE" ];
+            var decenas = [ "", "", "", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA" ];
+            var centenas = [ "", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS",
+                "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS" ];
+
+            // número del 1 al 999 en letras
+            function centenasEnLetras( n )
+            {
+                if ( n == 100 )
+                    return "CIEN";
+
+                var texto = centenas[ Math.floor( n / 100 ) ];
+                var resto = n % 100;
+
+                if ( resto == 0 )
+                    return texto;
+
+                if ( texto != "" )
+                    texto += " ";
+
+                if ( resto < 30 )
+                    return texto + unidades[ resto ];
+
+                texto += decenas[ Math.floor( resto / 10 ) ];
+
+                if ( resto % 10 != 0 )
+                    texto += " Y " + unidades[ resto % 10 ];
+
+                return texto;
+            } // fin de la función centenasEnLetras
+
+            // número entero del 0 al 999,999,999 en letras
+            function enLetras( n )
+            {
+                if ( n == 0 )
+                    return "CERO";
+
+                var millones = Math.floor( n / 1000000 );
+                var miles = Math.floor( ( n % 1000000 ) / 1000 );
+                var resto = n % 1000;
+                var texto = "";
+
+                if ( millones > 0 )
+                {
+                    if ( millones == 1 )
+                        texto += "UN MILLÓN ";
+                    else
+                        texto += apocope( centenasEnLetras( millones ) ) + " MILLONES ";
+                } // fin de if
+
+                if ( miles > 0 )
+                {
+                    if ( miles == 1 )
+                        texto += "MIL ";
+                    else
+                        texto += apocope( centenasEnLetras( miles ) ) + " MIL ";
+                } // fin de if
+
+                if ( resto > 0 )
+                    texto += centenasEnLetras( resto );
+
+                return texto.replace( /\s+$/, "" );
+            } // fin de la función enLetras
+
+            // "UNO" -> "UN" y "VEINTIUNO" -> "VEINTIÚN" cuando van antes de "MIL" o "MILLONES"
+            function apocope( texto )
+            {
+                if ( texto.substring( texto.length - 9 ) == "VEINTIUNO" )
+                    return texto.substring( 0, texto.length - 9 ) + "VEINTIÚN";
+
+                if ( texto.substring( texto.length - 3 ) == "UNO" )
+                    return texto.substring( 0, texto.length - 1 );
+
+                return texto;
+            } // fin de la función apocope
+
+            function escribir()
+            {
+                var monto = parseFloat( document.getElementById( "monto" ).value );
+
+                if ( isNaN( monto ) || monto < 0 || monto >= 1000000000 )
+                {
+                    alert( "Escriba un monto válido (menor que mil millones)" );
+                    return;
+                } // fin de if
+
+                var centavos = Math.round( ( monto - Math.floor( monto ) ) * 100 );
+                var enteros = Math.floor( monto );
+
+                if ( centavos == 100 ) // por el redondeo
+                {
+                    centavos = 0;
+                    ++enteros;
+                } // fin de if
+
+                var cent = centavos < 10 ? "0" + centavos : "" + centavos;
+
+                document.getElementById( "resultado" ).innerHTML =
+                    enLetras( enteros ) + " CON " + cent + "/100";
+            } // fin de la función escribir
+
+            function iniciar()
+            {
+                document.getElementById( "botonEscribir" ).addEventListener( "click", escribir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.25 (Escribir el equivalente en palabras del monto de un cheque)</h3>
+    <p>Escriba una secuencia de comandos que reciba como entrada un monto numérico para el cheque y escriba el equivalente del monto en letras. Por ejemplo, el monto 112.43 debe escribirse como CIENTO DOCE CON 43/100.</p>
+    <form action = "#">
+        <p><label>Monto: <input id = "monto" type = "text" value = "112.43"></label>
+        <input id = "botonEscribir" type = "button" value = "Escribir en letras"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

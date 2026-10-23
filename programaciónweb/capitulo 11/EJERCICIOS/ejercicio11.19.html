@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            // versión propia de indexOf: devuelve el índice de la primera ocurrencia de
+            // "subcadena" en "cadena" (a partir de "inicio"), o -1 si no la encuentra
+            function miIndexOf( cadena, subcadena, inicio )
+            {
+                if ( inicio === undefined || inicio < 0 )
+                    inicio = 0;
+
+                for ( var i = inicio; i + subcadena.length <= cadena.length; ++i )
+                {
+                    if ( cadena.substring( i, i + subcadena.length ) == subcadena )
+                        return i;
+                } // fin de for
+
+                return -1;
+            } // fin de la función miIndexOf
+
+            function buscar()
+            {
+                var cadena = document.getElementById( "cadena" ).value;
+                var subcadena = document.getElementById( "subcadena" ).value;
+
+                document.getElementById( "resultado" ).innerHTML =
+                    "miIndexOf: " + miIndexOf( cadena, subcadena ) +
+                    "<br>indexOf de JavaScript: " + cadena.indexOf( subcadena );
+            } // fin de la función buscar
+
+            function iniciar()
+            {
+                document.getElementById( "botonBuscar" ).addEventListener( "click", buscar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.19</h3>
+    <p>Escriba su propia versión del método String indexOf y úselo en una secuencia de comandos.</p>
+    <form action = "#">
+        <p><label>Cadena: <input id = "cadena" type = "text" size = "40" value = "abracadabra"></label></p>
+        <p><label>Subcadena a buscar: <input id = "subcadena" type = "text" size = "10" value = "bra"></label>
+        <input id = "botonBuscar" type = "button" value = "Buscar"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

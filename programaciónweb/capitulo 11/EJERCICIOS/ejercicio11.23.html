@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <style>
+            table { border-collapse: collapse; }
+            th, td { border: 1px solid black; padding: 2px 10px; }
+            textarea { font-family: monospace; }
+        </style>
+        <script>
+            // quita los caracteres que no son letras ni dígitos
+            function limpiar( palabra )
+            {
+                var limpia = "";
+
+                for ( var i = 0; i < palabra.length; ++i )
+                {
+                    var c = palabra.charAt( i );
+
+                    if ( c.toLowerCase() != c.toUpperCase() || ( c >= "0" && c <= "9" ) )
+                        limpia += c;
+                } // fin de for
+
+                return limpia.toLowerCase();
+            } // fin de la función limpiar
+
+            // quita los acentos de las vocales para contar las letras del alfabeto
+            function sinAcento( c )
+            {
+                var con = "áéíóúü";
+                var sin = "aeiouu";
+                var i = con.indexOf( c );
+                return i == -1 ? c : sin.charAt( i );
+            } // fin de la función sinAcento
+
+            function analizar()
+            {
+                var texto = document.getElementById( "texto" ).value;
+                var minusculas = texto.toLowerCase();
+                var alfabeto = "abcdefghijklmnopqrstuvwxyz";
+
+                // a) ocurrencias de cada letra
+                var letras = new Array( 26 );
+
+                for ( var i = 0; i < 26; ++i )
+                    letras[ i ] = 0;
+
+                for ( var i = 0; i < minusculas.length; ++i )
+                {
+                    var pos = alfabeto.indexOf( sinAcento( minusculas.charAt( i ) ) );
+
+                    if ( pos != -1 )
+                        ++letras[ pos ];
+                } // fin de for
+
+                var ta = "<h3>a) Ocurrencias de cada letra</h3><table><tr><th>Letra</th><th>Ocurrencias</th></tr>";
+
+                for ( var i = 0; i < 26; ++i )
+                    ta += "<tr><td>" + alfabeto.charAt( i ) + "</td><td>" + letras[ i ] + "</td></tr>";
+
+                ta += "</table>";
+
+                // dividir el texto en palabras
+                var tokens = texto.split( /\s+/ );
+                var palabras = [];
+
+                for ( var i = 0; i < tokens.length; ++i )
+                {
+                    var p = limpiar( tokens[ i ] );
+
+                    if ( p.length > 0 )
+                        palabras.push( p );
+                } // fin de for
+
+                // b) palabras según su longitud
+                var maxLong = 0;
+
+                for ( var i = 0; i < palabras.length; ++i )
+                    if ( palabras[ i ].length > maxLong )
+                        maxLong = palabras[ i ].length;
+
+                var porLongitud = new Array( maxLong + 1 );
+
+                for ( var i = 0; i <= maxLong; ++i )
+                    porLongitud[ i ] = 0;
+
+                for ( var i = 0; i < palabras.length; ++i )
+                    ++porLongitud[ palabras[ i ].length ];
+
+                var tb = "<h3>b) Palabras según su longitud</h3><table><tr><th>Longitud de palabra</th><th>Ocurrencias</th></tr>";
+
+                for ( var i = 1; i <= maxLong; ++i )
+                    tb += "<tr><td>" + i + "</td><td>" + porLongitud[ i ] + "</td></tr>";
+
+                tb += "</table>";
+
+                // c) palabras distintas, en el orden en que aparecen
+                var distintas = [];
+                var cuentas = [];
+
+                for ( var i = 0; i < palabras.length; ++i )
+                {
+                    var indice = distintas.indexOf( palabras[ i ] );
+
+                    if ( indice == -1 )
+                    {
+                        distintas.push( palabras[ i ] );
+                        cuentas.push( 1 );
+                    } // fin de if
+                    else
+                        ++cuentas[ indice ];
+                } // fin de for
+
+                var tc = "<h3>c) Palabras distintas (en orden de aparición)</h3><table><tr><th>Palabra</th><th>Ocurrencias</th></tr>";
+
+                for ( var i = 0; i < distintas.length; ++i )
+                    tc += "<tr><td>" + distintas[ i ] + "</td><td>" + cuentas[ i ] + "</td></tr>";
+
+                tc += "</table>";
+
+                // c) lo mismo, en orden alfabético
+                var orden = distintas.slice();
+                orden.sort();
+
+                var td = "<h3>c) Palabras distintas (en orden alfabético)</h3><table><tr><th>Palabra</th><th>Ocurrencias</th></tr>";
+
+                for ( var i = 0; i < orden.length; ++i )
+                    td += "<tr><td>" + orden[ i ] + "</td><td>" + cuentas[ distintas.indexOf( orden[ i ] ) ] + "</td></tr>";
+
+                td += "</table>";
+
+                document.getElementById( "resultado" ).innerHTML = ta + tb + tc + td;
+            } // fin de la función analizar
+
+            function iniciar()
+            {
+                document.getElementById( "botonAnalizar" ).addEventListener( "click", analizar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.23 (Análisis de textos)</h3>
+    <p>La disponibilidad de computadoras con capacidades de manipulación de cadenas ha dado como resultado algunos métodos interesantes para analizar los escritos de grandes autores. En este ejercicio se examinan tres métodos para analizar textos mediante una computadora.</p>
+    <p>a) Escriba una aplicación que lea una línea de texto desde el teclado e imprima una tabla que indique el número de ocurrencias de cada letra del alfabeto en el texto. b) Escriba una secuencia de comandos que lea varias líneas de texto e imprima una tabla que indique el número de palabras de una letra, de dos letras, de tres letras, etcétera, que aparezcan en el texto. c) Escriba una aplicación que lea varias líneas de texto e imprima una tabla que indique el número de ocurrencias de cada palabra distinta en el texto (primero en el mismo orden en el que aparecen y después en orden alfabético).</p>
+    <form action = "#">
+        <p><textarea id = "texto" rows = "5" cols = "55">Ser o no ser: ese es el dilema:
+¿Qué es más noble para el espíritu?</textarea></p>
+        <p><input id = "botonAnalizar" type = "button" value = "Analizar texto"></p>
+    </form>
+    <div id = "resultado"></div>
+    </body>
+</html>

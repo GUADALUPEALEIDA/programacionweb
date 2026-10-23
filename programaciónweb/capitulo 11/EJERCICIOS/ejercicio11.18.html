@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function iniciar()
+            {
+                var salida = "";
+
+                for ( var codigo = 0; codigo <= 255; ++codigo )
+                {
+                    var texto = "" + codigo;
+
+                    while ( texto.length < 3 ) // código de tres dígitos
+                        texto = "0" + texto;
+
+                    // los códigos 0-31 y 127-159 son caracteres de control (no se imprimen)
+                    if ( codigo < 32 || ( codigo >= 127 && codigo < 160 ) )
+                        salida += texto + " = (carácter de control)\n";
+                    else
+                        salida += texto + " = " + String.fromCharCode( codigo ) + "\n";
+                } // fin de for
+
+                document.getElementById( "salida" ).value = salida;
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.18</h3>
+    <p>Modifique su solución al ejercicio 11.17 de manera que genere todos los posibles códigos de tres dígitos en el rango de 000 a 255, y que intente imprimir los caracteres correspondientes. Muestre los resultados en un elemento textarea de HTML5.</p>
+    <p><textarea id = "salida" rows = "20" cols = "40"></textarea></p>
+    </body>
+</html>

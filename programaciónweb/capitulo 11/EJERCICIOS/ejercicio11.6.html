@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function comparar()
+            {
+                var c1 = document.getElementById( "cadena1" ).value;
+                var c2 = document.getElementById( "cadena2" ).value;
+                var resultado = document.getElementById( "resultado" );
+
+                if ( c1 == c2 )
+                    resultado.innerHTML = "\"" + c1 + "\" es igual a \"" + c2 + "\"";
+                else if ( c1 < c2 )
+                    resultado.innerHTML = "\"" + c1 + "\" es menor que \"" + c2 + "\"";
+                else if ( c1 > c2 )
+                    resultado.innerHTML = "\"" + c1 + "\" es mayor que \"" + c2 + "\"";
+            } // fin de la función comparar
+
+            function iniciar()
+            {
+                document.getElementById( "botonComparar" ).addEventListener( "click", comparar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.6</h3>
+    <p>Escriba una secuencia de comandos que use operadores relacionales y de igualdad para comparar dos objetos String introducidos por el usuario a través de un formulario de HTML5. Muestre si la primera cadena es menor, igual o mayor que la segunda.</p>
+    <form action = "#">
+        <p><label>Primera cadena: <input id = "cadena1" type = "text"></label></p>
+        <p><label>Segunda cadena: <input id = "cadena2" type = "text"></label></p>
+        <p><input id = "botonComparar" type = "button" value = "Comparar"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

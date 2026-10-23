@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            var dias = [ "domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado" ];
+            var meses = [ "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+                "agosto", "septiembre", "octubre", "noviembre", "diciembre" ];
+
+            function dos( n )
+            {
+                return n < 10 ? "0" + n : "" + n;
+            } // fin de la función dos
+
+            function mostrar()
+            {
+                var partes = document.getElementById( "fecha" ).value.split( "-" ); // aaaa-mm-dd
+
+                if ( partes.length != 3 )
+                {
+                    alert( "Elija una fecha" );
+                    return;
+                } // fin de if
+
+                var f = new Date( parseInt( partes[ 0 ] ), parseInt( partes[ 1 ] ) - 1, parseInt( partes[ 2 ] ) );
+
+                document.getElementById( "resultado" ).innerHTML =
+                    "<p>toString: " + f.toString() + "</p>" +
+                    "<p>toLocaleString: " + f.toLocaleString() + "</p>" +
+                    "<p>toUTCString: " + f.toUTCString() + "</p>" +
+                    "<p>dd/mm/aaaa: " + dos( f.getDate() ) + "/" + dos( f.getMonth() + 1 ) + "/" + f.getFullYear() + "</p>" +
+                    "<p>mm-dd-aa: " + dos( f.getMonth() + 1 ) + "-" + dos( f.getDate() ) + "-" + dos( f.getFullYear() % 100 ) + "</p>" +
+                    "<p>aaaa-mm-dd: " + f.getFullYear() + "-" + dos( f.getMonth() + 1 ) + "-" + dos( f.getDate() ) + "</p>" +
+                    "<p>Largo: " + dias[ f.getDay() ] + " " + f.getDate() + " de " +
+                        meses[ f.getMonth() ] + " de " + f.getFullYear() + "</p>" +
+                    "<p>Milisegundos desde 1970 (valueOf): " + f.valueOf() + "</p>";
+            } // fin de la función mostrar
+
+            function iniciar()
+            {
+                document.getElementById( "botonMostrar" ).addEventListener( "click", mostrar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.22 (Impresión de fechas en varios formatos)</h3>
+    <p>Las fechas se imprimen en varios formatos comunes. Escriba una secuencia de comandos que lea una fecha de un formulario de HTML5 y cree un objeto Date para guardar esa fecha. Después use los diversos métodos del objeto Date que convierten las fechas en cadenas para mostrar esa fecha en varios formatos.</p>
+    <form action = "#">
+        <p><label>Fecha: <input id = "fecha" type = "date"></label>
+        <input id = "botonMostrar" type = "button" value = "Mostrar formatos"></p>
+    </form>
+    <div id = "resultado"></div>
+    </body>
+</html>

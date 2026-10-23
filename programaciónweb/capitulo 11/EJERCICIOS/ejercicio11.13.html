@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function contar()
+            {
+                var texto = document.getElementById( "texto" ).value;
+                var caracter = document.getElementById( "caracter" ).value;
+                var total = 0;
+
+                if ( caracter.length != 1 )
+                {
+                    alert( "Escriba un solo carácter de búsqueda" );
+                    return;
+                } // fin de if
+
+                var posicion = texto.indexOf( caracter ); // primera ocurrencia
+
+                while ( posicion != -1 )
+                {
+                    ++total;
+                    posicion = texto.indexOf( caracter, posicion + 1 ); // buscar desde la siguiente posición
+                } // fin de while
+
+                document.getElementById( "resultado" ).innerHTML =
+                    "El carácter \"" + caracter + "\" aparece " + total + " vez(veces) en el texto.";
+            } // fin de la función contar
+
+            function iniciar()
+            {
+                document.getElementById( "botonContar" ).addEventListener( "click", contar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.13</h3>
+    <p>Escriba una secuencia de comandos que reciba como entrada varias líneas de texto y un carácter de búsqueda, y que utilice el método String indexOf para determinar el número de ocurrencias de ese carácter en el texto.</p>
+    <form action = "#">
+        <p><textarea id = "texto" rows = "5" cols = "50"></textarea></p>
+        <p><label>Carácter de búsqueda: <input id = "caracter" type = "text" size = "2" maxlength = "1"></label>
+        <input id = "botonContar" type = "button" value = "Contar"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

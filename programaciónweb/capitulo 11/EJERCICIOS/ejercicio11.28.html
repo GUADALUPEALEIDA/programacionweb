@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <style>
+            table.cruci { border-collapse: collapse; margin-bottom: 15px; }
+            table.cruci td { width: 24px; height: 24px; padding: 0; text-align: center;
+                position: relative; font-size: 14px; }
+            table.cruci td.celda { border: 1px solid black; background-color: white; }
+            table.cruci td.vacia { border: none; background-color: white; }
+            table.cruci span.num { position: absolute; top: 0; left: 1px; font-size: 8px; }
+        </style>
+        <script>
+            var TAM = 41;       // cuadrícula de trabajo de 41 por 41
+            var grilla;         // arreglo bidimensional de letras ("" si está vacía)
+
+            function sinAcento( texto )
+            {
+                var con = "áéíóúü";
+                var sin = "aeiouu";
+                var resultado = "";
+                texto = texto.toLowerCase();
+
+                for ( var i = 0; i < texto.length; ++i )
+                {
+                    var p = con.indexOf( texto.charAt( i ) );
+                    resultado += p == -1 ? texto.charAt( i ) : sin.charAt( p );
+                } // fin de for
+
+                return resultado.toUpperCase();
+            } // fin de la función sinAcento
+
+            function letraEn( f, c )
+            {
+                if ( f < 0 || c < 0 || f >= TAM || c >= TAM )
+                    return "";
+
+                return grilla[ f ][ c ];
+            } // fin de la función letraEn
+
+            // comprueba si la palabra puede colocarse en (f, c) en la dirección indicada
+            // (dir 0 = horizontal, dir 1 = vertical); devuelve el número de cruces o -1
+            function puedeColocar( palabra, f, c, dir )
+            {
+                var df = dir == 1 ? 1 : 0;
+                var dc = dir == 0 ? 1 : 0;
+                var cruces = 0;
+
+                // las casillas anterior y posterior a la palabra deben estar vacías
+                if ( letraEn( f - df, c - dc ) != "" || letraEn( f + df * palabra.length, c + dc * palabra.length ) != "" )
+                    return -1;
+
+                for ( var i = 0; i < palabra.length; ++i )
+                {
+                    var ff = f + df * i;
+                    var cc = c + dc * i;
+
+                    if ( ff < 0 || cc < 0 || ff >= TAM || cc >= TAM )
+                        return -1;
+
+                    var actual = grilla[ ff ][ cc ];
+
+                    if ( actual == palabra.charAt( i ) )
+                        ++cruces; // se cruza con otra palabra
+                    else if ( actual != "" )
+                        return -1; // choca con otra letra
+                    else
+                    {
+                        // las casillas laterales de una letra nueva deben estar vacías
+                        if ( letraEn( ff + dc, cc + df ) != "" || letraEn( ff - dc, cc - df ) != "" )
+                            return -1;
+                    } // fin de else
+                } // fin de for
+
+                return cruces;
+            } // fin de la función puedeColocar
+
+            function colocar( palabra, f, c, dir )
+            {
+                for ( var i = 0; i < palabra.length; ++i )
+                {
+                    if ( dir == 1 )
+                        grilla[ f + i ][ c ] = palabra.charAt( i );
+                    else
+                        grilla[ f ][ c + i ] = palabra.charAt( i );
+                } // fin de for
+            } // fin de la función colocar
+
+            function generar()
+            {
+                grilla = new Array( TAM );
+
+                for ( var i = 0; i < TAM; ++i )
+                {
+                    grilla[ i ] = new Array( TAM );
+
+                    for ( var j = 0; j < TAM; ++j )
+                        grilla[ i ][ j ] = "";
+                } // fin de for
+
+                // leer las palabras y sus pistas
+                var lineas = document.getElementById( "entrada" ).value.split( "\n" );
+                var palabras = [], pistas = [];
+
+                for ( var i = 0; i < lineas.length; ++i )
+                {
+                    var p = lineas[ i ].indexOf( ":" );
+
+                    if ( p > 0 )
+                    {
+                        palabras.push( sinAcento( lineas[ i ].substring( 0, p ).replace( /\s/g, "" ) ) );
+                        pistas.push( lineas[ i ].substring( p + 1 ).replace( /^\s+/, "" ) );
+                    } // fin de if
+                } // fin de for
+
+                if ( palabras.length == 0 )
+                {
+                    alert( "Escriba al menos una palabra con su pista (palabra: pista)" );
+                    return;
+                } // fin de if
+
+                // la palabra más larga va primero, en horizontal, cerca del centro
+                var orden = [];
+
+                for ( var i = 0; i < palabras.length; ++i )
+                    orden.push( i );
+
+                orden.sort( function( a, b ) { return palabras[ b ].length - palabras[ a ].length; } );
+
+                var colocadas = [];   // { indice, f, c, dir }
+                var noColocadas = [];
+
+                colocar( palabras[ orden[ 0 ] ], 20, 10, 0 );
+                colocadas.push( { indice: orden[ 0 ], f: 20, c: 10, dir: 0 } );
+
+                for ( var k = 1; k < orden.length; ++k )
+                {
+                    var palabra = palabras[ orden[ k ] ];
+                    var mejor = null;
+
+                    // probar todas las posiciones y quedarse con la que más cruces tenga
+                    for ( var dir = 0; dir < 2; ++dir )
+                        for ( var f = 0; f < TAM; ++f )
+                            for ( var c = 0; c < TAM; ++c )
+                            {
+                                var cruces = puedeColocar( palabra, f, c, dir );
+
+                                if ( cruces > 0 && ( mejor == null || cruces > mejor.cruces ) )
+                                    mejor = { f: f, c: c, dir: dir, cruces: cruces };
+                            } // fin de for
+
+                    if ( mejor == null )
+                        noColocadas.push( orden[ k ] );
+                    else
+                    {
+                        colocar( palabra, mejor.f, mejor.c, mejor.dir );
+                        colocadas.push( { indice: orden[ k ], f: mejor.f, c: mejor.c, dir: mejor.dir } );
+                    } // fin de else
+                } // fin de for
+
+                // área ocupada
+                var minF = TAM, maxF = 0, minC = TAM, maxC = 0;
+
+                for ( var i = 0; i < TAM; ++i )
+                    for ( var j = 0; j < TAM; ++j )
+                        if ( grilla[ i ][ j ] != "" )
+                        {
+                            minF = Math.min( minF, i ); maxF = Math.max( maxF, i );
+                            minC = Math.min( minC, j ); maxC = Math.max( maxC, j );
+                        } // fin de if
+
+                // numerar las casillas donde empieza alguna palabra
+                var numeros = {};
+                var siguiente = 1;
+                var horizontales = [], verticales = [];
+
+                for ( var i = minF; i <= maxF; ++i )
+                    for ( var j = minC; j <= maxC; ++j )
+                    {
+                        var empiezaH = grilla[ i ][ j ] != "" && letraEn( i, j - 1 ) == "" && letraEn( i, j + 1 ) != "";
+                        var empiezaV = grilla[ i ][ j ] != "" && letraEn( i - 1, j ) == "" && letraEn( i + 1, j ) != "";
+
+                        if ( empiezaH || empiezaV )
+                        {
+                            numeros[ i + "," + j ] = siguiente;
+
+                            for ( var k = 0; k < colocadas.length; ++k )
+                            {
+                                if ( colocadas[ k ].f == i && colocadas[ k ].c == j )
+                                {
+                                    var texto = siguiente + ". " + pistas[ colocadas[ k ].indice ] +
+                                        " (" + palabras[ colocadas[ k ].indice ].length + " letras)";
+
+                                    if ( colocadas[ k ].dir == 0 )
+                                        horizontales.push( texto );
+                                    else
+                                        verticales.push( texto );
+                                } // fin de if
+                            } // fin de for
+
+                            ++siguiente;
+                        } // fin de if
+                    } // fin de for
+
+                // dibujar el crucigrama en blanco y la solución
+                function dibujar( conLetras )
+                {
+                    var t = "<table class = 'cruci'>";
+
+                    for ( var i = minF; i <= maxF; ++i )
+                    {
+                        t += "<tr>";
+
+                        for ( var j = minC; j <= maxC; ++j )
+                        {
+                            if ( grilla[ i ][ j ] == "" )
+                                t += "<td class = 'vacia'></td>";
+                            else
+                            {
+                                var n = numeros[ i + "," + j ];
+                                t += "<td class = 'celda'>" + ( n ? "<span class = 'num'>" + n + "</span>" : "" ) +
+                                    ( conLetras ? grilla[ i ][ j ] : "&nbsp;" ) + "</td>";
+                            } // fin de else
+                        } // fin de for
+
+                        t += "</tr>";
+                    } // fin de for
+
+                    return t + "</table>";
+                } // fin de la función dibujar
+
+                var salida = "<h3>Crucigrama</h3>" + dibujar( false ) +
+                    "<h3>Horizontales</h3><p>" + horizontales.join( "<br>" ) + "</p>" +
+                    "<h3>Verticales</h3><p>" + verticales.join( "<br>" ) + "</p>" +
+                    "<h3>Solución</h3>" + dibujar( true );
+
+                if ( noColocadas.length > 0 )
+                {
+                    var nombres = [];
+
+                    for ( var k = 0; k < noColocadas.length; ++k )
+                        nombres.push( palabras[ noColocadas[ k ] ] );
+
+                    salida += "<p>No se pudieron colocar: " + nombres.join( ", " ) + "</p>";
+                } // fin de if
+
+                document.getElementById( "resultado" ).innerHTML = salida;
+            } // fin de la función generar
+
+            function iniciar()
+            {
+                document.getElementById( "botonGenerar" ).addEventListener( "click", generar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.28 (Proyecto: un generador de crucigramas)</h3>
+    <p>La mayoría de las personas han resuelto crucigramas, pero pocos han intentado generar uno. Aquí lo sugerimos como un proyecto de manipulación de cadenas que requiere una cantidad considerable de sofisticación y esfuerzo. ¿Cómo representaría la cuadrícula de un crucigrama dentro de la computadora? ¿Debería utilizar una serie de cadenas o arreglos con doble subíndice? Necesitamos una fuente de palabras (es decir, un diccionario computarizado) a la que el programa pueda hacer referencia de manera directa. El lector realmente ambicioso querrá generar la porción de claves del crucigrama, en la que se imprimen pistas breves para cada palabra horizontal y cada palabra vertical.</p>
+    <p>Escriba una palabra y su pista por línea, separadas por dos puntos:</p>
+    <form action = "#">
+        <p><textarea id = "entrada" rows = "9" cols = "60">arreglo: Estructura que guarda una lista de valores
+indice: Número que indica la posición de un elemento
+cadena: Serie de caracteres tratada como una sola unidad
+objeto: Entidad con atributos y comportamientos
+funcion: Bloque de código que se invoca por su nombre
+variable: Espacio de memoria con nombre
+ciclo: Repite un bloque de instrucciones</textarea></p>
+        <p><input id = "botonGenerar" type = "button" value = "Generar crucigrama"></p>
+    </form>
+    <div id = "resultado"></div>
+    </body>
+</html>

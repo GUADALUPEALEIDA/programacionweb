@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function iniciar()
+            {
+                var s = "";
+                var v = [ -5.6, -2.5, 0, 2.5, 7.2, 9.75 ];
+
+                // métodos de un argumento
+                var f1 = [ "abs", "ceil", "floor", "round", "sin", "cos", "tan", "exp", "sqrt", "log" ];
+
+                for ( var i = 0; i < f1.length; ++i )
+                {
+                    s += "Math." + f1[ i ] + "( x )\n";
+
+                    for ( var j = 0; j < v.length; ++j )
+                        s += "   x = " + v[ j ] + "  ->  " + Math[ f1[ i ] ]( v[ j ] ) + "\n";
+
+                    s += "\n";
+                } // fin de for
+
+                // métodos de dos argumentos
+                var pares = [ [ 2.3, 12.7 ], [ -2.3, -12.7 ], [ 9, 0.5 ], [ 2, 7 ] ];
+                var f2 = [ "max", "min", "pow" ];
+
+                for ( var i = 0; i < f2.length; ++i )
+                {
+                    s += "Math." + f2[ i ] + "( x, y )\n";
+
+                    for ( var j = 0; j < pares.length; ++j )
+                        s += "   x = " + pares[ j ][ 0 ] + ", y = " + pares[ j ][ 1 ] + "  ->  " +
+                            Math[ f2[ i ] ]( pares[ j ][ 0 ], pares[ j ][ 1 ] ) + "\n";
+
+                    s += "\n";
+                } // fin de for
+
+                document.getElementById( "salida" ).value = s;
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.3</h3>
+    <p>Escriba una secuencia de comandos que evalúe todas las funciones que pueda de la biblioteca Math de la figura 11.1. Para ejercitar cada una de estas funciones, haga que su programa muestre tablas de valores de retorno para varios valores de argumentos en un elemento textarea de HTML5.</p>
+    <p><textarea id = "salida" rows = "34" cols = "50"></textarea></p>
+    </body>
+</html>

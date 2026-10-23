@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            var articulo = [ "el", "un", "algún", "ningún" ];
+            var sustantivo = [ "niño", "niña", "perro", "ciudad", "auto" ];
+            var verbo = [ "manejó", "saltó", "corrió", "caminó", "omitió" ];
+            var preposicion = [ "a", "desde", "encima de", "debajo de", "sobre" ];
+
+            function elegir( arreglo )
+            {
+                return arreglo[ Math.floor( Math.random() * arreglo.length ) ];
+            } // fin de la función elegir
+
+            function generarHistoria()
+            {
+                var historia = "Había una vez...\n";
+
+                for ( var i = 1; i <= 20; ++i )
+                {
+                    var enunciado = elegir( articulo ) + " " + elegir( sustantivo ) + " " +
+                        elegir( verbo ) + " " + elegir( preposicion ) + " " +
+                        elegir( articulo ) + " " + elegir( sustantivo );
+
+                    // primera letra en mayúscula y punto al final
+                    enunciado = enunciado.charAt( 0 ).toUpperCase() + enunciado.substring( 1 ) + ".";
+                    historia += enunciado + "\n";
+                } // fin de for
+
+                historia += "FIN";
+                document.getElementById( "historia" ).value = historia;
+            } // fin de la función generarHistoria
+
+            function iniciar()
+            {
+                document.getElementById( "botonHistoria" ).addEventListener( "click", generarHistoria, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.7</h3>
+    <p>Escriba una secuencia de comandos que utilice la generación de números aleatorios para crear enunciados. Use cuatro arreglos de cadenas llamados articulo, sustantivo, verbo y preposicion. Para crear un enunciado seleccione una palabra al azar de cada arreglo en el siguiente orden: articulo, sustantivo, verbo, preposicion, articulo y sustantivo. Al momento de elegir cada palabra hay que concatenarla a las palabras anteriores en el enunciado. Las palabras deben separarse mediante espacios. Cuando se imprima el enunciado final, deberá empezar con una letra mayúscula y terminar con un punto. El programa deberá generar 20 enunciados para formar una historia corta y mostrar el resultado en un elemento textarea de HTML5. La historia debe empezar con la línea "Había una vez..." y terminar con la línea "FIN".</p>
+    <form action = "#">
+        <p><input id = "botonHistoria" type = "button" value = "Generar historia"></p>
+    </form>
+    <p><textarea id = "historia" rows = "26" cols = "50"></textarea></p>
+    </body>
+</html>

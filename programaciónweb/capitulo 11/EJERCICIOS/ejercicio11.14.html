@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function contar()
+            {
+                var texto = document.getElementById( "texto" ).value.toLowerCase(); // mayúsculas y minúsculas cuentan igual
+                var alfabeto = "abcdefghijklmnopqrstuvwxyz";
+                var totales = new Array( 26 );
+
+                for ( var i = 0; i < 26; ++i )
+                {
+                    totales[ i ] = 0;
+                    var posicion = texto.indexOf( alfabeto.charAt( i ) );
+
+                    while ( posicion != -1 )
+                    {
+                        ++totales[ i ];
+                        posicion = texto.indexOf( alfabeto.charAt( i ), posicion + 1 );
+                    } // fin de while
+                } // fin de for
+
+                var salida = "Letra   Total\n";
+
+                for ( var i = 0; i < 26; ++i )
+                    salida += "  " + alfabeto.charAt( i ) + "       " + totales[ i ] + "\n";
+
+                document.getElementById( "salida" ).value = salida;
+            } // fin de la función contar
+
+            function iniciar()
+            {
+                document.getElementById( "botonContar" ).addEventListener( "click", contar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.14</h3>
+    <p>Escriba una secuencia de comandos con base en el programa del ejercicio 11.13 que reciba como entrada varias líneas de texto y utilice el método String indexOf para determinar el número total de ocurrencias de cada letra del alfabeto en ese texto. Las letras mayúsculas y minúsculas deben contarse como una sola. Almacene los totales para cada letra en un arreglo, e imprima los valores en formato tabular en un elemento textarea de HTML5 después de que se hayan determinado los totales.</p>
+    <form action = "#">
+        <p><textarea id = "texto" rows = "5" cols = "50"></textarea></p>
+        <p><input id = "botonContar" type = "button" value = "Contar letras"></p>
+    </form>
+    <p><textarea id = "salida" rows = "14" cols = "30"></textarea></p>
+    </body>
+</html>

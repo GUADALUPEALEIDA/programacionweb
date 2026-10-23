@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function mostrar()
+            {
+                var codigo = parseInt( document.getElementById( "codigo" ).value );
+
+                if ( isNaN( codigo ) || codigo < 0 )
+                {
+                    alert( "Escriba un código entero válido" );
+                    return;
+                } // fin de if
+
+                document.getElementById( "resultado" ).innerHTML =
+                    "El carácter con código " + codigo + " es: " + String.fromCharCode( codigo );
+            } // fin de la función mostrar
+
+            function iniciar()
+            {
+                document.getElementById( "botonMostrar" ).addEventListener( "click", mostrar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.17</h3>
+    <p>Escriba una secuencia de comandos que reciba como entrada un código entero para un carácter y que muestre el carácter correspondiente.</p>
+    <form action = "#">
+        <p><label>Código del carácter: <input id = "codigo" type = "text" size = "6"></label>
+        <input id = "botonMostrar" type = "button" value = "Mostrar carácter"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

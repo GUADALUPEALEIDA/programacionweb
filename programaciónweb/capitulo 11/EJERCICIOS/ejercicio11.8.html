@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            // cada grupo tiene el comienzo de varias líneas y palabras finales que riman
+            var grupos = [
+                { comienzos: [ "El gato Nicanor quiso", "Mi vecina doña Pepa fue a",
+                    "Un loro muy cantor salió a", "La abuela del jardín empezó a",
+                    "Un pirata sin timón vino a" ],
+                  finales: [ "bailar", "cantar", "saltar", "pescar", "nadar", "volar" ] },
+                { comienzos: [ "Un señor con buen humor comió un", "El pirata en su balcón vio un",
+                    "Doña Rosa sin razón perdió un", "Mi tío en la estación compró un",
+                    "La reina en el salón regaló un" ],
+                  finales: [ "melón", "ratón", "bastón", "camión", "limón", "balón" ] },
+                { comienzos: [ "El rey de aquel lugar estaba muy", "Mi perro, al regresar, quedó muy",
+                    "La bruja del lugar se sintió muy", "El burro del vecino se puso muy",
+                    "El cartero esta mañana llegó muy" ],
+                  finales: [ "cansado", "enojado", "mojado", "asustado", "sorprendido", "sentado" ] }
+            ];
+
+            function elegir( arreglo )
+            {
+                return arreglo[ Math.floor( Math.random() * arreglo.length ) ];
+            } // fin de la función elegir
+
+            function linea( grupo, usadas )
+            {
+                var fin;
+
+                do
+                {
+                    fin = elegir( grupo.finales );
+                } while ( usadas.indexOf( fin ) != -1 ); // no repetir la rima
+
+                usadas.push( fin );
+                return elegir( grupo.comienzos ) + " " + fin + ".";
+            } // fin de la función linea
+
+            function generarQuintilla()
+            {
+                var a = Math.floor( Math.random() * 3 );
+                var b = ( a + 1 + Math.floor( Math.random() * 2 ) ) % 3; // grupo distinto de a
+                var usadasA = [], usadasB = [];
+
+                var versos = [ linea( grupos[ a ], usadasA ), linea( grupos[ a ], usadasA ),
+                    linea( grupos[ b ], usadasB ), linea( grupos[ b ], usadasB ),
+                    linea( grupos[ a ], usadasA ) ];
+
+                document.getElementById( "quintilla" ).value = versos.join( "\n" );
+            } // fin de la función generarQuintilla
+
+            function iniciar()
+            {
+                document.getElementById( "botonQuintilla" ).addEventListener( "click", generarQuintilla, false );
+                generarQuintilla();
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.8 (Quintillas)</h3>
+    <p>Una quintilla es un verso humorístico de cinco líneas en el cual la primera y segunda línea riman con la quinta, y la tercera línea rima con la cuarta. Utilizando técnicas similares a las desarrolladas en el ejercicio 11.7, escriba una secuencia de comandos que produzca quintillas al azar. Mejorar el programa para producir buenas quintillas es un gran desafío, ¡pero el resultado valdrá la pena!</p>
+    <form action = "#">
+        <p><input id = "botonQuintilla" type = "button" value = "Generar quintilla"></p>
+    </form>
+    <p><textarea id = "quintilla" rows = "7" cols = "55"></textarea></p>
+    </body>
+</html>

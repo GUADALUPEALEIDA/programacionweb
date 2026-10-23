@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function filtrar()
+            {
+                var cadenas = document.getElementById( "entrada" ).value.split( "\n" );
+                var salida = "";
+
+                for ( var i = 0; i < cadenas.length; ++i )
+                {
+                    var cadena = cadenas[ i ];
+
+                    // los dos últimos caracteres de la cadena
+                    if ( cadena.length >= 2 && cadena.substring( cadena.length - 2 ) == "ed" )
+                        salida += cadena + "\n";
+                } // fin de for
+
+                document.getElementById( "salida" ).value = salida;
+            } // fin de la función filtrar
+
+            function iniciar()
+            {
+                document.getElementById( "botonFiltrar" ).addEventListener( "click", filtrar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.16</h3>
+    <p>Escriba una secuencia de comandos que lea una serie de cadenas e imprima en un elemento textarea de HTML5 sólo aquellas cadenas que terminen con los caracteres “ed”.</p>
+    <form action = "#">
+        <p><label>Escriba una cadena por línea:<br>
+        <textarea id = "entrada" rows = "6" cols = "30">united
+played
+house
+red
+walk</textarea></label></p>
+        <p><input id = "botonFiltrar" type = "button" value = "Filtrar"></p>
+    </form>
+    <p>Cadenas que terminan con "ed":<br>
+    <textarea id = "salida" rows = "6" cols = "30"></textarea></p>
+    </body>
+</html>

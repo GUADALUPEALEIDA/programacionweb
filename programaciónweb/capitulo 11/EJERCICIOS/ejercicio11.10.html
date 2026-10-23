@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function separar()
+            {
+                var telefono = document.getElementById( "telefono" ).value;
+
+                // "(555)555-5555" se divide con ")" y después con "-"
+                var partes = telefono.split( ")" ); // [ "(555", "555-5555" ]
+                var codigoArea = partes[ 0 ].substring( 1 ); // quitar el "("
+                var tokens = partes[ 1 ].split( "-" ); // [ "555", "5555" ]
+
+                document.getElementById( "codigo" ).value = codigoArea;
+                document.getElementById( "numero" ).value = tokens[ 0 ] + "-" + tokens[ 1 ];
+            } // fin de la función separar
+
+            function iniciar()
+            {
+                document.getElementById( "botonSeparar" ).addEventListener( "click", separar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.10</h3>
+    <p>Escriba una aplicación que reciba como entrada un número telefónico como una cadena de la forma (555)555-5555. La aplicación deberá utilizar el método String split para extraer el código de área como un token, los primeros tres dígitos del número telefónico como otro token y los últimos cuatro dígitos del número telefónico como otro token. Muestre en pantalla el código de área en un campo de texto y el número telefónico de siete dígitos en otro campo de texto.</p>
+    <form action = "#">
+        <p><label>Teléfono: <input id = "telefono" type = "text" value = "(555)555-5555"></label>
+        <input id = "botonSeparar" type = "button" value = "Separar"></p>
+        <p><label>Código de área: <input id = "codigo" type = "text" size = "5"></label></p>
+        <p><label>Número de siete dígitos: <input id = "numero" type = "text" size = "10"></label></p>
+    </form>
+    </body>
+</html>

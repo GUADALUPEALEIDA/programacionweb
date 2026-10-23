@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function generar()
+            {
+                var palabra = document.getElementById( "palabra" ).value;
+
+                if ( palabra.length != 5 )
+                {
+                    alert( "Escriba una palabra de exactamente cinco letras" );
+                    return;
+                } // fin de if
+
+                var resultados = [];
+
+                // tres posiciones distintas de la palabra, en todos los órdenes posibles
+                for ( var i = 0; i < 5; ++i )
+                    for ( var j = 0; j < 5; ++j )
+                        for ( var k = 0; k < 5; ++k )
+                            if ( i != j && i != k && j != k )
+                            {
+                                var cadena = palabra.charAt( i ) + palabra.charAt( j ) + palabra.charAt( k );
+
+                                if ( resultados.indexOf( cadena ) == -1 ) // sin repetir
+                                    resultados.push( cadena );
+                            } // fin de if
+
+                document.getElementById( "cuenta" ).innerHTML = resultados.length + " cadenas de tres letras:";
+                document.getElementById( "salida" ).value = resultados.join( "\n" );
+            } // fin de la función generar
+
+            function iniciar()
+            {
+                document.getElementById( "botonGenerar" ).addEventListener( "click", generar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.21</h3>
+    <p>Escriba un programa que lea una palabra de cinco letras proveniente del usuario, y que produzca todas las posibles cadenas de tres letras que puedan derivarse de las letras de la palabra con cinco letras. Por ejemplo, las palabras de tres letras producidas a partir de la palabra “trigo” son “rio”, “tio” y “oir”. Muestre los resultados en un elemento textarea de HTML5.</p>
+    <form action = "#">
+        <p><label>Palabra de cinco letras: <input id = "palabra" type = "text" size = "8" maxlength = "5" value = "trigo"></label>
+        <input id = "botonGenerar" type = "button" value = "Generar"></p>
+    </form>
+    <p id = "cuenta"></p>
+    <p><textarea id = "salida" rows = "12" cols = "40"></textarea></p>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function convertir()
+            {
+                var texto = document.getElementById( "texto" ).value;
+                document.getElementById( "mayusculas" ).innerHTML = "En mayúsculas: " + texto.toUpperCase();
+                document.getElementById( "minusculas" ).innerHTML = "En minúsculas: " + texto.toLowerCase();
+            } // fin de la función convertir
+
+            function iniciar()
+            {
+                document.getElementById( "botonConvertir" ).addEventListener( "click", convertir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.12</h3>
+    <p>Escriba una secuencia de comandos que reciba texto de un formulario de HTML5 y lo imprima tanto en mayúsculas como en minúsculas.</p>
+    <form action = "#">
+        <p><input id = "texto" type = "text" size = "50">
+        <input id = "botonConvertir" type = "button" value = "Convertir"></p>
+    </form>
+    <p id = "mayusculas"></p>
+    <p id = "minusculas"></p>
+    </body>
+</html>

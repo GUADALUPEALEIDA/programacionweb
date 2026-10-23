@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            // cada unidad: [ tipo, factor respecto a la unidad base ] (base: metro, kilogramo, litro)
+            var unidades = {
+                "metro": [ "longitud", 1 ], "centimetro": [ "longitud", 0.01 ],
+                "milimetro": [ "longitud", 0.001 ], "kilometro": [ "longitud", 1000 ],
+                "pulgada": [ "longitud", 0.0254 ], "pie": [ "longitud", 0.3048 ],
+                "yarda": [ "longitud", 0.9144 ], "milla": [ "longitud", 1609.344 ],
+                "kilogramo": [ "masa", 1 ], "gramo": [ "masa", 0.001 ],
+                "libra": [ "masa", 0.45359237 ], "onza": [ "masa", 0.028349523 ],
+                "litro": [ "volumen", 1 ], "mililitro": [ "volumen", 0.001 ],
+                "cuarto": [ "volumen", 0.946353 ], "galon": [ "volumen", 3.785412 ]
+            };
+
+            // quita acentos, signos de interrogación y pasa a minúsculas
+            function normalizar( texto )
+            {
+                var con = "áéíóúñ¿?¡!";
+                var sin = "aeioun";
+                var resultado = "";
+                texto = texto.toLowerCase();
+
+                for ( var i = 0; i < texto.length; ++i )
+                {
+                    var c = texto.charAt( i );
+                    var pos = con.indexOf( c );
+
+                    if ( pos == -1 )
+                        resultado += c;
+                    else if ( pos < 6 )
+                        resultado += sin.charAt( pos );
+                } // fin de for
+
+                return resultado;
+            } // fin de la función normalizar
+
+            // busca una unidad (singular o plural) en la tabla
+            function buscarUnidad( palabra )
+            {
+                if ( unidades[ palabra ] )
+                    return palabra;
+
+                if ( palabra.substring( palabra.length - 1 ) == "s" && unidades[ palabra.substring( 0, palabra.length - 1 ) ] )
+                    return palabra.substring( 0, palabra.length - 1 );
+
+                if ( palabra.substring( palabra.length - 2 ) == "es" && unidades[ palabra.substring( 0, palabra.length - 2 ) ] )
+                    return palabra.substring( 0, palabra.length - 2 );
+
+                return null;
+            } // fin de la función buscarUnidad
+
+            function convertir()
+            {
+                var resultado = document.getElementById( "resultado" );
+                var tokens = normalizar( document.getElementById( "pregunta" ).value ).split( " " );
+
+                // forma esperada: cuantos|cuantas <unidad destino> hay en <número> <unidad origen>
+                if ( tokens.length != 6 || tokens[ 2 ] != "hay" || tokens[ 3 ] != "en" )
+                {
+                    resultado.innerHTML = "No entendí la pregunta. Use el formato: ¿Cuántas pulgadas hay en 2 metros?";
+                    return;
+                } // fin de if
+
+                var destino = buscarUnidad( tokens[ 1 ] );
+                var origen = buscarUnidad( tokens[ 5 ] );
+                var cantidad = parseFloat( tokens[ 4 ] );
+
+                if ( destino == null || origen == null || isNaN( cantidad ) )
+                {
+                    resultado.innerHTML = "Unidad o cantidad desconocida.";
+                    return;
+                } // fin de if
+
+                if ( unidades[ destino ][ 0 ] != unidades[ origen ][ 0 ] )
+                {
+                    resultado.innerHTML = "Conversión inválida: " + tokens[ 1 ] + " son unidades de " +
+                        unidades[ destino ][ 0 ] + ", mientras que " + tokens[ 5 ] + " son unidades de " +
+                        unidades[ origen ][ 0 ] + ".";
+                    return;
+                } // fin de if
+
+                var valor = cantidad * unidades[ origen ][ 1 ] / unidades[ destino ][ 1 ];
+                resultado.innerHTML = cantidad + " " + tokens[ 5 ] + " = " +
+                    Math.round( valor * 10000 ) / 10000 + " " + tokens[ 1 ];
+            } // fin de la función convertir
+
+            function iniciar()
+            {
+                document.getElementById( "botonConvertir" ).addEventListener( "click", convertir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.26 (Programa de conversión métrica)</h3>
+    <p>Escriba una secuencia de comandos que ayude al usuario a realizar conversiones métricas. Su programa debe permitir al usuario especificar los nombres de las unidades como cadenas (es decir, centímetros, litros, gramos, etcétera, para el sistema métrico, y pulgadas, cuartos, libras, etcétera, para el sistema inglés) y debe responder a preguntas simples tales como: "¿Cuántas pulgadas hay en 2 metros?", "¿Cuántos litros hay en 10 cuartos?". Su programa debe reconocer conversiones inválidas. Por ejemplo, la pregunta "¿Cuántos pies hay en 5 kilogramos?" no es correcta, debido a que los "pies" son unidades de longitud, mientras que los "kilogramos" son unidades de masa.</p>
+    <p>Unidades conocidas: metros, centímetros, milímetros, kilómetros, pulgadas, pies, yardas, millas (longitud); kilogramos, gramos, libras, onzas (masa); litros, mililitros, cuartos, galones (volumen).</p>
+    <form action = "#">
+        <p><input id = "pregunta" type = "text" size = "50" value = "¿Cuántas pulgadas hay en 2 metros?">
+        <input id = "botonConvertir" type = "button" value = "Convertir"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

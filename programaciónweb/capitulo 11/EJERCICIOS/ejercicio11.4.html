@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <style>
+            table { border-collapse: collapse; }
+            th, td { border: 1px solid black; padding: 2px 10px; }
+            textarea { font-family: monospace; }
+        </style>
+        <script>
+            var filas = "";
+
+            function redondearAEntero( numero )
+            {
+                return Math.floor( numero + .5 );
+            } // fin de la función redondearAEntero
+
+            function redondearADecimas( numero )
+            {
+                return Math.floor( numero * 10 + .5 ) / 10;
+            } // fin de la función redondearADecimas
+
+            function redondearACentesimas( numero )
+            {
+                return Math.floor( numero * 100 + .5 ) / 100;
+            } // fin de la función redondearACentesimas
+
+            function redondearAMilesimas( numero )
+            {
+                return Math.floor( numero * 1000 + .5 ) / 1000;
+            } // fin de la función redondearAMilesimas
+
+            function redondear()
+            {
+                var campo = document.getElementById( "numero" );
+                var x = parseFloat( campo.value );
+
+                if ( isNaN( x ) )
+                {
+                    alert( "Escriba un número válido" );
+                    return;
+                } // fin de if
+
+                filas += "<tr><td>" + x + "</td><td>" + redondearAEntero( x ) + "</td><td>" +
+                    redondearADecimas( x ) + "</td><td>" + redondearACentesimas( x ) + "</td><td>" +
+                    redondearAMilesimas( x ) + "</td></tr>";
+
+                document.getElementById( "resultado" ).innerHTML =
+                    "<table><tr><th>Original</th><th>Entero</th><th>Décimas</th>" +
+                    "<th>Centésimas</th><th>Milésimas</th></tr>" + filas + "</table>";
+                campo.value = "";
+            } // fin de la función redondear
+
+            function iniciar()
+            {
+                document.getElementById( "botonRedondear" ).addEventListener( "click", redondear, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.4</h3>
+    <p>El método floor de Math puede usarse para redondear un número a un lugar decimal específico. Por ejemplo, la instrucción y = Math.floor( x * 10 + .5 ) / 10; redondea x a la posición de décimas (la primera posición a la derecha del punto decimal). La instrucción y = Math.floor( x * 100 + .5 ) / 100; redondea x a la posición de centésimas (es decir, la segunda posición a la derecha del punto decimal). Escriba una secuencia de comandos que defina cuatro funciones para redondear un número x de varias formas: a) redondearAEntero( numero ), b) redondearADecimas( numero ), c) redondearACentesimas( numero ), d) redondearAMilesimas( numero ). Para cada valor leído, su programa deberá mostrar el valor original, el número redondeado al entero más cercano, el número redondeado a la décima más cercana, el número redondeado a la centésima más cercana y el número redondeado a la milésima más cercana.</p>
+    <form action = "#">
+        <p><label>Número: <input id = "numero" type = "text"></label>
+        <input id = "botonRedondear" type = "button" value = "Redondear"></p>
+    </form>
+    <div id = "resultado"></div>
+    </body>
+</html>

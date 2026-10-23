@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            // muestra una palabra en latín cerdo en el textarea
+            function imprimirPalabraEnLatin( palabra )
+            {
+                var latin = palabra.substring( 1 ) + palabra.charAt( 0 ) + "ae";
+                document.getElementById( "salida" ).value += latin + " ";
+            } // fin de la función imprimirPalabraEnLatin
+
+            function traducir()
+            {
+                var campo = document.getElementById( "frase" );
+                var palabras = campo.value.split( " " );
+
+                for ( var i = 0; i < palabras.length; ++i )
+                {
+                    if ( palabras[ i ].length >= 2 )
+                        imprimirPalabraEnLatin( palabras[ i ] );
+                } // fin de for
+
+                document.getElementById( "salida" ).value += "\n";
+                campo.value = "";
+            } // fin de la función traducir
+
+            function iniciar()
+            {
+                document.getElementById( "botonTraducir" ).addEventListener( "click", traducir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.9 (Latín cerdo)</h3>
+    <p>Escriba una secuencia de comandos que codifique frases en español a frases en latín cerdo. Para formar una frase en latín cerdo a partir de una frase en español, divida la frase en palabras con el método split de String. Para traducir cada palabra en español a una palabra en latín cerdo, coloque la primera letra de la palabra en español al final de la palabra, y agregue las letras "ae". De esta forma, la palabra "salta" se convierte a "altasae", la palabra "el" se convierte en "leae" y la palabra "computadora" se convierte en "omputadoracae". Suponga que la frase en español consiste de palabras separadas por espacios en blanco, que no hay signos de puntuación y que todas las palabras tienen dos o más letras. La función imprimirPalabraEnLatin deberá mostrar cada palabra. Permita al usuario introducir el enunciado a través de un formulario de HTML5. Muestre de manera continua en la pantalla todos los enunciados convertidos en un elemento textarea de HTML5.</p>
+    <form action = "#">
+        <p><label>Frase en español: <input id = "frase" type = "text" size = "40"></label>
+        <input id = "botonTraducir" type = "button" value = "Traducir"></p>
+    </form>
+    <p><textarea id = "salida" rows = "10" cols = "55"></textarea></p>
+    </body>
+</html>

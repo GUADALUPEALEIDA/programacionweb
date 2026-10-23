@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function invertir()
+            {
+                var tokens = document.getElementById( "linea" ).value.split( " " );
+                var resultado = "";
+
+                // recorrer el arreglo de tokens desde el último hasta el primero
+                for ( var i = tokens.length - 1; i >= 0; --i )
+                    resultado += tokens[ i ] + " ";
+
+                document.getElementById( "resultado" ).innerHTML = resultado;
+            } // fin de la función invertir
+
+            function iniciar()
+            {
+                document.getElementById( "botonInvertir" ).addEventListener( "click", invertir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.11</h3>
+    <p>Escriba una secuencia de comandos que reciba como entrada una línea de texto, que divida la línea en tokens mediante el método split de String y que muestre los tokens en orden inverso.</p>
+    <form action = "#">
+        <p><input id = "linea" type = "text" size = "50">
+        <input id = "botonInvertir" type = "button" value = "Invertir"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>

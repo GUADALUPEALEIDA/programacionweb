@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            function formato( monto )
+            {
+                var texto = monto.toFixed( 2 ); // por ejemplo "1230.60"
+                var punto = texto.indexOf( "." );
+                var entera = texto.substring( 0, punto );
+                var decimales = texto.substring( punto );
+                var conComas = "";
+
+                // insertar comas de miles
+                for ( var i = 0; i < entera.length; ++i )
+                {
+                    if ( i > 0 && ( entera.length - i ) % 3 == 0 )
+                        conComas += ",";
+
+                    conComas += entera.charAt( i );
+                } // fin de for
+
+                return conComas + decimales;
+            } // fin de la función formato
+
+            function imprimir()
+            {
+                var monto = parseFloat( document.getElementById( "monto" ).value );
+
+                if ( isNaN( monto ) || monto < 0 )
+                {
+                    alert( "Escriba un monto válido" );
+                    return;
+                } // fin de if
+
+                var texto = formato( monto );
+
+                if ( texto.length > 9 )
+                {
+                    document.getElementById( "resultado" ).textContent =
+                        "El monto no cabe en los nueve espacios del cheque.";
+                    return;
+                } // fin de if
+
+                while ( texto.length < 9 ) // asteriscos al principio
+                    texto = "*" + texto;
+
+                document.getElementById( "resultado" ).textContent =
+                    texto + "\n---------\n123456789";
+            } // fin de la función imprimir
+
+            function iniciar()
+            {
+                document.getElementById( "botonImprimir" ).addEventListener( "click", imprimir, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.24 (Protección de cheques)</h3>
+    <p>Los cheques diseñados para impresión por computadora contienen un número fijo de espacios en los cuales la computadora puede imprimir un monto. Para evitar que se altere el cheque, muchos sistemas de escritura de cheques insertan <em>asteriscos al principio</em> para proteger la cantidad. Escriba una secuencia de comandos que reciba como entrada un monto a imprimir sobre un cheque y que lo escriba mediante el formato de protección de cheques, con asteriscos al principio si es necesario. Suponga que existen nueve espacios disponibles para imprimir el monto.</p>
+    <form action = "#">
+        <p><label>Monto: <input id = "monto" type = "text" value = "99.87"></label>
+        <input id = "botonImprimir" type = "button" value = "Imprimir cheque"></p>
+    </form>
+    <pre id = "resultado"></pre>
+    </body>
+</html>

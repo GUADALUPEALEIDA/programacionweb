@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+    <div class="reg">
+        <a class="regresar" href="ejercicios.html">⬅</a>
+    </div>
+        <meta charset="utf-8">
+        <title>EJERCICIO</title>
+        <script>
+            var listaDePalabras = [ "predeterminado", "útil", "cumpleaños", "casa", "perro", "gato",
+                "computadora", "programa", "arreglo", "función", "cadena", "objeto", "documento",
+                "teclado", "pantalla", "ventana", "página", "escuela", "maestro", "alumno" ];
+
+            // busca una palabra en la listaDePalabras
+            function estaEnLista( palabra )
+            {
+                return listaDePalabras.indexOf( palabra ) != -1;
+            } // fin de la función estaEnLista
+
+            function revisar()
+            {
+                var palabra = document.getElementById( "palabra" ).value.toLowerCase();
+                var resultado = document.getElementById( "resultado" );
+
+                if ( estaEnLista( palabra ) )
+                {
+                    resultado.innerHTML = "La palabra está escrita correctamente";
+                    return;
+                } // fin de if
+
+                var mensaje = "La palabra no está escrita correctamente";
+                var sugerencias = [];
+
+                // prueba 1: transposición de cada par de letras adyacentes
+                for ( var i = 0; i < palabra.length - 1; ++i )
+                {
+                    var candidata = palabra.substring( 0, i ) + palabra.charAt( i + 1 ) +
+                        palabra.charAt( i ) + palabra.substring( i + 2 );
+
+                    if ( estaEnLista( candidata ) && sugerencias.indexOf( candidata ) == -1 )
+                        sugerencias.push( candidata );
+                } // fin de for
+
+                // prueba 2: reemplazar cada letra doble con una sola letra
+                for ( var i = 0; i < palabra.length - 1; ++i )
+                {
+                    if ( palabra.charAt( i ) == palabra.charAt( i + 1 ) )
+                    {
+                        var candidata = palabra.substring( 0, i ) + palabra.substring( i + 1 );
+
+                        if ( estaEnLista( candidata ) && sugerencias.indexOf( candidata ) == -1 )
+                            sugerencias.push( candidata );
+                    } // fin de if
+                } // fin de for
+
+                // prueba 3: una letra de más (se quita cada letra)
+                for ( var i = 0; i < palabra.length; ++i )
+                {
+                    var candidata = palabra.substring( 0, i ) + palabra.substring( i + 1 );
+
+                    if ( estaEnLista( candidata ) && sugerencias.indexOf( candidata ) == -1 )
+                        sugerencias.push( candidata );
+                } // fin de for
+
+                for ( var i = 0; i < sugerencias.length; ++i )
+                    mensaje += "<br>¿Quiso decir \"" + sugerencias[ i ] + "\"?";
+
+                resultado.innerHTML = mensaje;
+            } // fin de la función revisar
+
+            function iniciar()
+            {
+                document.getElementById( "botonRevisar" ).addEventListener( "click", revisar, false );
+            } // fin de la función iniciar
+
+            window.addEventListener( "load", iniciar, false );
+        </script>
+    </head>
+    <body>
+    <h3>EJERCICIO 11.27 (Proyecto: un corrector ortográfico)</h3>
+    <p>Diseñe e implemente una aplicación de corrección ortográfica en JavaScript. Su programa debe mantener un arreglo de cadenas llamado listaDePalabras. Su programa debe pedir al usuario que introduzca una palabra. La aplicación debe entonces buscar esa palabra en el arreglo listaDePalabras. Si la palabra se encuentra en el arreglo, su programa deberá imprimir "La palabra está escrita correctamente". Si la palabra no se encuentra en el arreglo, su aplicación debe imprimir "La palabra no está escrita correctamente". Después su aplicación debe tratar de localizar otras palabras en la listaDePalabras que puedan ser la palabra que el usuario trataba de escribir (por ejemplo, probando todas las transposiciones simples de letras adyacentes). Cuando encuentre una nueva palabra que concuerde con una en la listaDePalabras, imprima esa palabra en un mensaje como "¿Quiso decir "predeterminado"?". Implemente otras pruebas, como reemplazar cada letra doble con una sola letra.</p>
+    <form action = "#">
+        <p><label>Palabra: <input id = "palabra" type = "text" value = "perdeterminado"></label>
+        <input id = "botonRevisar" type = "button" value = "Revisar"></p>
+    </form>
+    <p id = "resultado"></p>
+    </body>
+</html>
